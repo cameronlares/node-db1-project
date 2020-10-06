@@ -23,7 +23,16 @@ router.get('/:id', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-    
+    const postData = req.body;
+    //validate the data, before calling the data
+
+    //if the data is valid
+    db("accounts").insert(postData, 'id').then(ids =>{
+        res.status(200).json({data:ids})
+    })
+    .catch(error =>{
+        res.status(500).json({error: error.message})
+    })
 })
 
 module.exports = router;
